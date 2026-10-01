@@ -1465,7 +1465,7 @@ async function listZones() {
                     } else {
                         const url = zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
                         fetch(url+"?t="+Date.now()).then(response => response.text()).then(html => {
-                            const code = html.replace("cdn", "fastly");
+                            const code = html.replaceAll("cdn", "fastly");
                             document.documentElement.innerHTML = code;
                             const popup = document.createElement("div");
                             popup.style.position = "fixed";
@@ -1762,7 +1762,7 @@ function openZone(file) {
     } else {
         const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
         fetch(url+"?t="+Date.now()).then(response => response.text()).then(html => {
-            const code = html.replace("cdn", "fastly");
+            const code = html.replaceAll("cdn", "fastly");
             if (zoneFrame.contentDocument === null) {
                 zoneFrame = document.createElement("iframe");
                 zoneFrame.id = "zoneFrame";
@@ -1792,7 +1792,7 @@ function aboutBlank() {
     const newWindow = window.open("about:blank", "_blank");
     let zone = zones.find(zone => zone.id + '' === document.getElementById('zoneId').textContent).url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
     fetch(zone+"?t="+Date.now()).then(response => response.text()).then(html => {
-        const code = html.replace("cdn", "fastly");
+        const code = html.replaceAll("cdn", "fastly");
         if (newWindow) {
             newWindow.document.open();
             newWindow.document.write(code);
